@@ -24,8 +24,6 @@ export class UserService {
   async findOneById(id: string) {
     const user = await this.userModel.findById(id);
 
-    if (!user) throw new NotFoundException('User not found');
-
     return {
       message: 'User fetched successfully',
       data: user,
