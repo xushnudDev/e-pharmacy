@@ -2,10 +2,13 @@ import { Controller } from "@nestjs/common";
 import { UserService } from "./user.service";
 import { MessagePattern, Payload } from "@nestjs/microservices";
 import { CreateUserDto } from "./dtos";
+import { RegisterUserDto } from "./dtos/register-user.dto";
+import { AuthService } from "./auth.service";
+import { LoginUserDto } from "./dtos/login-user.dto";
 
 @Controller()
 export class UserController {
-    constructor(private readonly userService: UserService) {}
+    constructor(private readonly userService: UserService,private readonly authService: AuthService) {}
 
     @MessagePattern('get_all_users')
     async getAllUsers() {
@@ -21,6 +24,16 @@ export class UserController {
     async createUser(@Payload() data: CreateUserDto) {
         return this.userService.create(data);
     };
+
+    @MessagePattern('register_user')
+    async registerUser(@Payload() data: RegisterUserDto) {
+        return this.authService.register(data);
+    };
+
+    @MessagePattern('login_user')
+    async loginUser(@Payload() data: LoginUserDto) {
+        return this.authService.login(data);
+    }
 
     @MessagePattern('update_user')
     async updateUser(@Payload() data: {id: string, payload: CreateUserDto}) {

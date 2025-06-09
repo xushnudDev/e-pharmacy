@@ -1,7 +1,7 @@
-import { IsEnum, IsNotEmpty, IsString } from "class-validator";
+import { IsArray, IsIn, IsNotEmpty, IsString } from "class-validator";
 import { Roles } from "src/modules/enums";
 
-export class CreateUserDto {
+export class RegisterUserDto {
     @IsNotEmpty()
     @IsString()
     firstname: string;
@@ -22,6 +22,7 @@ export class CreateUserDto {
     @IsString()
     phone: string;
 
-    @IsEnum(Roles)
-    role: Roles;
+    @IsArray()
+    @IsIn([Roles.ADMIN, Roles.CUSTOMER])
+    role: Roles.CUSTOMER
 }

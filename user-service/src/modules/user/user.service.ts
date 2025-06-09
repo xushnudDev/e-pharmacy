@@ -41,6 +41,7 @@ export class UserService {
       email: payload.email,
       password: payload.password,
       phone: payload.phone,
+      role: payload.role,
     });
 
     return {

@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Model } from "mongoose";
+import { Roles } from "src/modules/enums";
 
 @Schema({collection: 'users',timestamps: true,versionKey: false})
 export class User extends Model {
@@ -17,6 +18,9 @@ export class User extends Model {
 
     @Prop({required: true,unique: true})
     phone: string;
+
+    @Prop({required:true,unique:true,default: Roles.CUSTOMER})
+    role: Roles.CUSTOMER
 };
 
 export const UserSchema = SchemaFactory.createForClass(User);

@@ -44,3 +44,4 @@ export class UserClient {
     return this.client.send('delete_user', data);
   };
 }
+  
