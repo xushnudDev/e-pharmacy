@@ -25,6 +25,15 @@ export class UpdatePillDto {
   quantity: number;
 
   @IsNotEmpty()
+  @Type(() => Number)
+  @IsNumber()
+  categoryId: number;
+
+  @IsNotEmpty()
+  @IsString() // yoki agar UUID bo‘lsa: @IsUUID()
+  userId: string;
+
+  @IsNotEmpty()
   @Type(() => Boolean)
   @IsBoolean()
   in_stock: boolean;

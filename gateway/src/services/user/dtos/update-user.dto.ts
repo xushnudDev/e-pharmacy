@@ -24,8 +24,8 @@ export class UpdateUserDto {
   @IsOptional()
   phone: string;
 
-  @ApiPropertyOptional()
-  @IsEnum(Roles)
-  @IsOptional()
-  role: Roles;
+  // @ApiPropertyOptional()
+  // @IsEnum(Roles)
+  // @IsOptional()
+  // role: Roles;
 }

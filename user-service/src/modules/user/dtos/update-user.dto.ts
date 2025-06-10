@@ -22,7 +22,7 @@ export class UpdateUserDto {
   @IsString()
   phone?: string;
 
-  @IsOptional()
-  @IsEnum(Roles)
-  role?: Roles;
+  // @IsOptional()
+  // @IsEnum(Roles)
+  // role?: Roles;
 }

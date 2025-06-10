@@ -24,9 +24,9 @@ export class CreateUserDto {
     @IsOptional()
     phone: string;
 
-    @ApiProperty({enum: Roles,default: Roles.CUSTOMER})
-    @IsNotEmpty()
-    role: Roles
+    // @ApiProperty({enum: Roles,default: Roles.CUSTOMER})
+    // @IsNotEmpty()
+    // role: Roles
     
 
 }

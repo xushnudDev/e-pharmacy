@@ -28,8 +28,8 @@ export class RegisterUserDto {
     @IsString()
     phone: string;
 
-    @ApiProperty()
-    @IsArray()
-    @IsIn([Roles.ADMIN, Roles.CUSTOMER])
-    role: Roles.CUSTOMER
+    // @ApiProperty()
+    // @IsArray()
+    // @IsIn([Roles.ADMIN, Roles.CUSTOMER])
+    // role: Roles.CUSTOMER
 }
