@@ -17,6 +17,16 @@ export class PillController {
         return this.pillService.findOne(data.id);
     };
 
+    @MessagePattern('get_pills_by_category')
+    getPillsByCategory(data: {categoryId: number}) {
+        return this.pillService.getByCategory(data.categoryId);
+    };
+
+    @MessagePattern('get_pills_by_user')
+    getPillsByUser(data: {userId: string}) {
+        return this.pillService.getByUser(data.userId);
+    }
+
     @MessagePattern('create_pill')
     create(data: CreatePillDto) {
         return this.pillService.create(data);

@@ -32,6 +32,14 @@ export class PillClient {
         return this.client.send("get_pill_by_id", data);
     };
 
+    getPillsByCategory(categoryId: number) {
+        return this.client.send("get_pills_by_category", {categoryId});
+    };
+
+    getPillsByUser(userId: string) {
+        return this.client.send("get_pills_by_user", {userId});
+    }
+
     updatePill(data: {id: number, payload: UpdatePillDto}) {
         return this.client.send("update_pill", data);
     };

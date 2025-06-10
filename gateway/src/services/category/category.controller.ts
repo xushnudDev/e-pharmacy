@@ -1,6 +1,6 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from "@nestjs/common";
 import { CategoryService } from "./category.service";
-import { CreateCategoryDto } from "./dtos";
+import { CreateCategoryDto, UpdateCategoryDto } from "./dtos";
 
 @Controller('category')
 export class CategoryController {
@@ -17,12 +17,17 @@ export class CategoryController {
     };
 
     @Get(':id')
-    async getOne(@Param("id") id: number) {
+    async getOne(@Param("id",ParseIntPipe) id: number) {
         return await this.categoryService.getOne({id});
     };
 
+    @Get('with-pills/all')
+    async getPillsByCategory() {
+        return await this.categoryService.getPillsByCategory();
+    }
+
     @Put(':id')
-    async updateCategory(@Param("id") id: number, @Body() payload: CreateCategoryDto) {
+    async updateCategory(@Param("id",ParseIntPipe) id: number, @Body() payload: UpdateCategoryDto) {
         return await this.categoryService.updateCategory({id, payload});
     };
 
