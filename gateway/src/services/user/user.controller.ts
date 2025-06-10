@@ -16,6 +16,11 @@ export class UserController {
         return this.userService.findUserById({id});
     };
 
+    @Get("with-pills/all")
+    getAllWithPills() {
+        return this.userService.getPillsByUser();
+    }
+
     @Post()
     createUser(@Body() payload: CreateUserDto) {
         return this.userService.createUser(payload);
