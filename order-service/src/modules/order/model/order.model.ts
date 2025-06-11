@@ -15,7 +15,7 @@ export class Order extends Model {
     quantity: number;
 
     @Column({})
-    totalPrice: number;
+    price: number;
 
     @Column({})
     status: string;
