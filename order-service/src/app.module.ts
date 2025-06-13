@@ -18,6 +18,5 @@ import { OrderModule } from './modules';
     }),
     OrderModule,
   ],
-  
 })
 export class AppModule {}

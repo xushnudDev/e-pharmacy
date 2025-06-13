@@ -19,8 +19,8 @@ export class User extends Model {
     @Prop({required: true,unique: true})
     phone: string;
 
-    @Prop({required:true,unique:true,default: Roles.CUSTOMER})
-    role: Roles.CUSTOMER
+    // @Prop({default: Roles.CUSTOMER})
+    // role: Roles
 };
 
 export const UserSchema = SchemaFactory.createForClass(User);
