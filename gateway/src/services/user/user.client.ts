@@ -5,6 +5,7 @@ import {
   Transport,
 } from '@nestjs/microservices';
 import { CreateUserDto } from './dtos';
+import { lastValueFrom, Observable } from 'rxjs';
 
 @Injectable()
 export class UserClient {
@@ -43,10 +44,10 @@ export class UserClient {
     return this.client.send('update_user', data);
   }
 
-  async decreaseBalance(data: { id: string; amount: number }) {
-    return await this.client.send('decrease_user_balance', data).toPromise();
+  // user.client.ts
+  decreaseBalance(data: { id: string; amount: number }): Observable<any> {
+    return this.client.send('decrease_user_balance', data);
   }
-
   deleteUser(data: { id: string }) {
     return this.client.send('delete_user', data);
   }

@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
-import { PaymentClient } from './payment.client';
-import { UserClient } from '../user';
-import { NotificationClient } from '../notification';
-import { CreatePaymentDto } from './dtos';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom } from "rxjs";
+import { CreatePaymentDto } from "./dtos";
+import { PaymentClient } from "./payment.client";
+import { UserClient } from "../user";
+import { NotificationClient } from "../notification";
+import { Injectable } from "@nestjs/common";
 
 @Injectable()
 export class PaymentService {
@@ -14,21 +14,24 @@ export class PaymentService {
   ) {}
 
   async createPayment(data: CreatePaymentDto) {
+    // 1. Balansdan yechish
     await firstValueFrom(
-      await this.userClient.decreaseBalance({ id: data.userId, amount: data.amount })
+      this.userClient.decreaseBalance({ id: data.userId, amount: data.amount })
     );
 
+    // 2. To'lovni yaratish
     const payment = await firstValueFrom(
-      await this.paymentClient.createPayment(data)
+      this.paymentClient.createPayment(data)
     );
 
+    // 3. Notification yuborish
     await firstValueFrom(
-      await this.notificationClient.sendNotification({
+      this.notificationClient.sendNotification({
         userId: data.userId,
         email: data.email,
-        message: `Payment was executed successfully: ${data.amount}`,
-        type: 'email',
-        status: 'sent',
+        message: data.message,
+        type: data.type,
+        status: data.status,
       })
     );
 
@@ -36,4 +39,5 @@ export class PaymentService {
       message: 'Payment created successfully',
       data: payment,
     };
-  }}
+  }
+}

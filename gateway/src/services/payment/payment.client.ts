@@ -5,6 +5,7 @@ import {
   Transport,
 } from '@nestjs/microservices';
 import { CreatePaymentDto } from './dtos';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class PaymentClient {
@@ -22,7 +23,7 @@ export class PaymentClient {
       },
     });
   };
-  async createPayment(data: CreatePaymentDto){
+   createPayment(data: CreatePaymentDto): Observable<any>  {
     return this.client.send('create-payment', data);
   }
 }

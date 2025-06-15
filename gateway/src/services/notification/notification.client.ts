@@ -5,6 +5,7 @@ import {
   Transport,
 } from '@nestjs/microservices';
 import { CreateNotificationDto } from './dtos';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class NotificationClient {
@@ -26,7 +27,7 @@ export class NotificationClient {
     await this.client.connect();
   }
 
-  async sendNotification(data: CreateNotificationDto) {
+   sendNotification(data: CreateNotificationDto): Observable<any> {
     return this.client.send('send-notification', data);
   }
 }
