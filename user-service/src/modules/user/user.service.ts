@@ -41,6 +41,7 @@ export class UserService {
       email: payload.email,
       password: payload.password,
       phone: payload.phone,
+      balance: payload.balance,
       // role: payload.role,
     });
 
@@ -49,7 +50,20 @@ export class UserService {
       data: newUser,
     };
   }
+  async decreaseBalance( userId: string, amount: number) {
+    const user = await this.userModel.findById(userId);
+    if (!user) throw new NotFoundException('User not found');
 
+    if (user.balance < amount)
+      throw new ConflictException('Insufficient balance');
+
+    user.balance -= amount;
+    await user.save();
+    return {
+      message: 'Balance updated successfully',
+      balance: user.balance,
+    };
+  }
   async update(id: string, payload: UpdateUserDto) {
     const user = await this.userModel.findById(id);
 
@@ -63,7 +77,7 @@ export class UserService {
       message: 'User updated successfully',
       data: updateUser,
     };
-  };
+  }
 
   async delete(id: string) {
     const user = await this.userModel.findById(id);

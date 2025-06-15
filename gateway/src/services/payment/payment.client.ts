@@ -4,29 +4,25 @@ import {
   ClientProxyFactory,
   Transport,
 } from '@nestjs/microservices';
-import { CreateNotificationDto } from './dtos';
+import { CreatePaymentDto } from './dtos';
 
 @Injectable()
-export class NotificationClient {
-  client: ClientProxy;
+export class PaymentClient {
+  private client: ClientProxy;
+
   constructor() {
     this.client = ClientProxyFactory.create({
       transport: Transport.RMQ,
       options: {
         urls: ['amqp://localhost:5672'],
-        queue: 'notification_queue',
+        queue: 'payment_queue',
         queueOptions: {
           durable: false,
         },
       },
     });
-  }
-
-  async onModuleInit() {
-    await this.client.connect();
-  }
-
-  async sendNotification(data: CreateNotificationDto) {
-    return this.client.send('send-notification', data);
+  };
+  async createPayment(data: CreatePaymentDto){
+    return this.client.send('create-payment', data);
   }
 }

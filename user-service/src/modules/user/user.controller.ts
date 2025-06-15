@@ -25,6 +25,12 @@ export class UserController {
         return this.userService.create(data);
     };
 
+    @MessagePattern('decrease_user_balance')
+    async decreaseUserBalance(@Payload() data: {id: string, amount: number}) {
+        return this.userService.decreaseBalance(data.id, data.amount);
+    }
+
+
     @MessagePattern('register_user')
     async registerUser(@Payload() data: RegisterUserDto) {
         return this.authService.register(data);

@@ -22,6 +22,9 @@ export class CreateUserDto {
     @IsString()
     phone: string;
 
+    @IsNotEmpty()
+    balance: number;
+
     // @IsEnum(Roles)
     // role: Roles;
 }

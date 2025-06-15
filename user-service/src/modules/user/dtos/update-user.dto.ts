@@ -22,6 +22,9 @@ export class UpdateUserDto {
   @IsString()
   phone?: string;
 
+  @IsOptional()
+  balance?: number;
+
   // @IsOptional()
   // @IsEnum(Roles)
   // role?: Roles;

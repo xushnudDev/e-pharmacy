@@ -24,6 +24,9 @@ export class UpdateUserDto {
   @IsOptional()
   phone: string;
 
+  @ApiPropertyOptional()
+  balance: number;
+
   // @ApiPropertyOptional()
   // @IsEnum(Roles)
   // @IsOptional()

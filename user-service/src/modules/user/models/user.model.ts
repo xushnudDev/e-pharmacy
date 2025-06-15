@@ -19,6 +19,9 @@ export class User extends Model {
     @Prop({required: true,unique: true})
     phone: string;
 
+    @Prop({})
+    balance: number;
+
     // @Prop({default: Roles.CUSTOMER})
     // role: Roles
 };

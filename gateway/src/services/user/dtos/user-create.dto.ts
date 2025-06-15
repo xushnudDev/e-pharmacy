@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsNotEmpty, IsOptional, IsString } from "class-validator";
+import { IsInt, IsNotEmpty, IsOptional, IsString } from "class-validator";
 import { Roles } from "../../enum";
 
 export class CreateUserDto {
@@ -23,6 +23,10 @@ export class CreateUserDto {
     @IsString()
     @IsOptional()
     phone: string;
+
+    @ApiProperty()
+    @IsInt()
+    balance: number;
 
     // @ApiProperty({enum: Roles,default: Roles.CUSTOMER})
     // @IsNotEmpty()
