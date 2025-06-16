@@ -13,16 +13,16 @@ export class User extends Model {
     @Prop({required: true,unique: true})
     email: string;
 
-    @Prop({required: true})
+    @Prop({required: true,unique: true})
     password: string;
 
     @Prop({required: true,unique: true})
     phone: string;
 
-    @Prop({required: true})
+    @Prop({})
     balance: number;
 
-    @Prop({required: true})
+    @Prop({})
     role: Roles
 };
 

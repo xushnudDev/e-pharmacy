@@ -42,10 +42,14 @@ export class AuthService {
   }
 
   async login(payload: LoginUserDto) {
-    const user = await this.userModel.findOne({ email: payload.email });
-    if (!user) throw new ConflictException('User does not exist');
+    const user = await this.userModel.findOne({
+      email: new RegExp(`^${payload.email}$`, 'i'),
+    });
 
+    if (!user) throw new ConflictException('User does not exist');
     const isMatch = await compare(payload.password, user.password);
+    console.log('Salom', isMatch);
+
     if (!isMatch) throw new UnauthorizedException('Invalid credentials');
 
     const token = this.jwtService.sign({

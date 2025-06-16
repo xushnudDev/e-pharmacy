@@ -10,11 +10,11 @@ async function bootstrap() {
 
   app.useGlobalFilters(new AllExceptionFilter());
 
-  const reflector = app.get(Reflector);
-  app.useGlobalGuards(
-    new JwtAuthGuard(reflector),
-    new RolesGuard(reflector),
-  );
+  // const reflector = app.get(Reflector);
+  // app.useGlobalGuards(
+  //   new JwtAuthGuard(reflector),
+  //   new RolesGuard(reflector),
+  // );
 
   const config = new DocumentBuilder()
     .setTitle('E-Pharmacy Microservice')

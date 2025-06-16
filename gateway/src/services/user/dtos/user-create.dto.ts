@@ -28,7 +28,7 @@ export class CreateUserDto {
   @IsInt()
   balance: number;
 
-  @ApiProperty({ enum: UserRoles, default: UserRoles.CUSTOMER })
+  @ApiProperty({})
   @IsNotEmpty()
   role: UserRoles;
 }
