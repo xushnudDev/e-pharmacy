@@ -56,12 +56,13 @@ export class PillService {
       data: pills,
     };
   }
-  async create(payload: CreatePillDto) {
+  async create(payload: CreatePillDto) {    
     const founded = await this.pillModel.findOne({
       where: {
-        name: payload.name,
+        code: payload.code,
       },
     });
+    
     if (founded) throw new ConflictException('Pill already exists');
 
     const pill = await this.pillModel.create({

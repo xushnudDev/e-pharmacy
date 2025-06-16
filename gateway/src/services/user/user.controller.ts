@@ -27,7 +27,6 @@ export class UserController {
 
     @Get("with-pills/all")
     @Protected(false)
-    @Roles([UserRoles.ADMIN,UserRoles.CUSTOMER])
     getAllWithPills() {
         return this.userService.getPillsByUser();
     }
@@ -42,7 +41,7 @@ export class UserController {
 
     @ApiBearerAuth()
     @Post('register')
-    @Protected(false)
+    @Protected(true)
     @Roles([UserRoles.ADMIN,UserRoles.CUSTOMER])
     registerUser(@Body() payload: RegisterUserDto) {
         return this.userService.register(payload);
@@ -50,7 +49,7 @@ export class UserController {
 
     @ApiBearerAuth()
     @Post('login')
-    @Protected(false)
+    @Protected(true)
     @Roles([UserRoles.ADMIN,UserRoles.CUSTOMER])
     loginUser(@Body() payload: LoginUserDto) {
         return this.userService.login(payload);
