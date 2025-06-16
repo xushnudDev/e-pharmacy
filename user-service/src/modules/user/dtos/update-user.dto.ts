@@ -25,7 +25,7 @@ export class UpdateUserDto {
   @IsOptional()
   balance?: number;
 
-  // @IsOptional()
-  // @IsEnum(Roles)
-  // role?: Roles;
+  @IsOptional()
+  @IsEnum(Roles)
+  role?: Roles;
 }

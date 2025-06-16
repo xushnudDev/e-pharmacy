@@ -25,6 +25,6 @@ export class CreateUserDto {
     @IsNotEmpty()
     balance: number;
 
-    // @IsEnum(Roles)
-    // role: Roles;
+    @IsEnum(Roles)
+    role: Roles;
 }

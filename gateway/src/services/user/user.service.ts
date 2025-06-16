@@ -1,6 +1,6 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { UserClient } from './user.client';
-import { CreateUserDto, UpdateUserDto } from './dtos';
+import { CreateUserDto, LoginUserDto, RegisterUserDto, UpdateUserDto } from './dtos';
 import { PillClient } from '../pill';
 import { lastValueFrom } from 'rxjs';
 
@@ -53,6 +53,14 @@ export class UserService {
 
   async createUser(payload: CreateUserDto) {
     return await this.userClient.createUser(payload);
+  }
+
+  async register(payload: RegisterUserDto) {
+    return await this.userClient.registerUser(payload);
+  };
+
+  async login(payload: LoginUserDto) {
+    return await this.userClient.loginUser(payload);
   }
 
   async updateUser(data: { id: string; payload: UpdateUserDto }) {

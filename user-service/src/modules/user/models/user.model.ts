@@ -19,11 +19,11 @@ export class User extends Model {
     @Prop({required: true,unique: true})
     phone: string;
 
-    @Prop({})
+    @Prop({required: true})
     balance: number;
 
-    // @Prop({default: Roles.CUSTOMER})
-    // role: Roles
+    @Prop({required: true})
+    role: Roles
 };
 
 export const UserSchema = SchemaFactory.createForClass(User);

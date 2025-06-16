@@ -3,8 +3,12 @@ import { User } from './models';
 import { Model } from 'mongoose';
 import { JwtService } from '@nestjs/jwt';
 import { RegisterUserDto } from './dtos/register-user.dto';
-import { ConflictException, Injectable, UnauthorizedException } from '@nestjs/common';
-import { compare, hash} from 'bcryptjs';
+import {
+  ConflictException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
+import { compare, hash } from 'bcryptjs';
 import { LoginUserDto } from './dtos/login-user.dto';
 
 @Injectable()
@@ -25,9 +29,15 @@ export class AuthService {
       password: hashedPassword,
     });
 
+    const accessToken = this.jwtService.sign({
+      id: user._id,
+      role: user.role,
+    });
+
     return {
       message: 'User registered successfully',
       data: user,
+      accessToken,
     };
   }
 

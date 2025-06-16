@@ -1,5 +1,5 @@
 import { IsArray, IsIn, IsNotEmpty, IsString } from "class-validator";
-import { Roles } from "../../enum";
+import { UserRoles } from "../../enum";
 import { ApiProperty } from "@nestjs/swagger";
 
 export class RegisterUserDto {
@@ -28,8 +28,8 @@ export class RegisterUserDto {
     @IsString()
     phone: string;
 
-    // @ApiProperty()
-    // @IsArray()
-    // @IsIn([Roles.ADMIN, Roles.CUSTOMER])
-    // role: Roles.CUSTOMER
+    @ApiProperty()
+    @IsArray()
+    @IsIn([UserRoles.ADMIN, UserRoles.CUSTOMER])
+    role: UserRoles;
 }
