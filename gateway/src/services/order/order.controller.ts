@@ -3,11 +3,13 @@ import { OrderService } from "./order.service";
 import { CreateOrderDto, UpdateOrderDto } from "./dtos";
 import { Protected, Roles } from "src/decorator";
 import { UserRoles } from "../enum";
+import { ApiBearerAuth } from "@nestjs/swagger";
 
 @Controller('order')
 export class OrderController {
     constructor(private readonly orderService: OrderService) {}
 
+    @ApiBearerAuth()
     @Get()
     @Protected(true)
     @Roles([UserRoles.ADMIN])
@@ -15,6 +17,7 @@ export class OrderController {
         return this.orderService.getAll();
     };
 
+    @ApiBearerAuth()
     @Get(':id')
     @Protected(true)
     @Roles([UserRoles.ADMIN])
@@ -22,6 +25,7 @@ export class OrderController {
         return this.orderService.getOne({id});
     };
 
+    @ApiBearerAuth()
     @Post()
     @Protected(true)
     @Roles([UserRoles.ADMIN])
@@ -29,6 +33,7 @@ export class OrderController {
         return this.orderService.create(payload);
     };
 
+    @ApiBearerAuth()
     @Put(':id')
     @Protected(true)
     @Roles([UserRoles.ADMIN])
@@ -36,6 +41,7 @@ export class OrderController {
         return this.orderService.update({id, payload});
     };
 
+    @ApiBearerAuth()
     @Delete(':id')
     @Protected(true)
     @Roles([UserRoles.ADMIN])

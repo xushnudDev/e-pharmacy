@@ -3,11 +3,13 @@ import { PaymentService } from './payment.service';
 import { CreatePaymentDto } from './dtos';
 import { Protected, Roles } from 'src/decorator';
 import { UserRoles } from '../enum';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
 @Controller('payment')
 export class PaymentController {
   constructor(private readonly paymentService: PaymentService) {}
 
+  @ApiBearerAuth()
   @Post()
   @Protected(true)
   @Roles([UserRoles.ADMIN])

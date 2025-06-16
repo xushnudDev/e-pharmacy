@@ -3,11 +3,13 @@ import { PillService } from "./pill.service";
 import { CreatePillDto, UpdatePillDto } from "./dtos";
 import { Protected, Roles } from "src/decorator";
 import { UserRoles } from "../enum";
+import { ApiBearerAuth } from "@nestjs/swagger";
 
 @Controller('pills')
 export class PillController {
     constructor(private readonly pillService: PillService) {}
 
+    @ApiBearerAuth()
     @Get()
     @Protected(true)
     @Roles([UserRoles.ADMIN])
@@ -15,13 +17,15 @@ export class PillController {
         return await this.pillService.findAll();
     };
 
+    @ApiBearerAuth()
     @Get(':id')
     @Protected(true)
     @Roles([UserRoles.ADMIN])
     async getById(@Param("id") id: number) {
         return await this.pillService.findOne({id});
     };
-    
+
+    @ApiBearerAuth()
     @Post()
     @Protected(true)
     @Roles([UserRoles.ADMIN])
@@ -29,6 +33,7 @@ export class PillController {
         return await this.pillService.create(payload);
     };
 
+    @ApiBearerAuth()
     @Put(':id')
     @Protected(true)
     @Roles([UserRoles.ADMIN])
@@ -36,6 +41,7 @@ export class PillController {
         return await this.pillService.update({id, payload});
     };
 
+    @ApiBearerAuth()
     @Delete(':id')
     @Protected(true)
     @Roles([UserRoles.ADMIN])

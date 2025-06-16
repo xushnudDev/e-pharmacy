@@ -3,11 +3,13 @@ import { CategoryService } from "./category.service";
 import { CreateCategoryDto, UpdateCategoryDto } from "./dtos";
 import { Protected, Roles } from "src/decorator";
 import { UserRoles } from "../enum";
+import { ApiBearerAuth } from "@nestjs/swagger";
 
 @Controller('category')
 export class CategoryController {
     constructor(private categoryService: CategoryService) {}
 
+    @ApiBearerAuth()
     @Post()
     @Protected(true)
     @Roles([UserRoles.ADMIN])
@@ -15,6 +17,7 @@ export class CategoryController {
         return await this.categoryService.createCategory(payload);
     };
 
+    @ApiBearerAuth()
     @Get()
     @Protected(true)
     @Roles([UserRoles.ADMIN])
@@ -22,6 +25,7 @@ export class CategoryController {
         return await this.categoryService.getAll();
     };
 
+    @ApiBearerAuth()
     @Get(':id')
     @Protected(true)
     @Roles([UserRoles.ADMIN])
@@ -36,6 +40,7 @@ export class CategoryController {
         return await this.categoryService.getPillsByCategory();
     }
 
+    @ApiBearerAuth()
     @Put(':id')
     @Protected(true)
     @Roles([UserRoles.ADMIN])
@@ -43,6 +48,7 @@ export class CategoryController {
         return await this.categoryService.updateCategory({id, payload});
     };
 
+    @ApiBearerAuth()
     @Delete(':id')
     @Protected(true)
     @Roles([UserRoles.ADMIN])

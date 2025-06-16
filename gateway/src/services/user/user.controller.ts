@@ -3,11 +3,13 @@ import { UserService } from "./user.service";
 import { CreateUserDto, LoginUserDto, RegisterUserDto, UpdateUserDto } from "./dtos";
 import { Protected, Roles } from "src/decorator";
 import { UserRoles } from "../enum";
+import { ApiBearerAuth } from "@nestjs/swagger";
 
 @Controller('user')
 export class UserController {
     constructor(private readonly userService: UserService) {}
 
+    @ApiBearerAuth()
     @Get()
     @Protected(true)
     @Roles([UserRoles.ADMIN])
@@ -15,6 +17,7 @@ export class UserController {
         return this.userService.findAllUsers();
     };
 
+    @ApiBearerAuth()
     @Get(':id')
     @Protected(true)
     @Roles([UserRoles.ADMIN])
@@ -29,6 +32,7 @@ export class UserController {
         return this.userService.getPillsByUser();
     }
 
+    @ApiBearerAuth()
     @Post()
     @Protected(true)
     @Roles([UserRoles.ADMIN])
@@ -36,6 +40,7 @@ export class UserController {
         return this.userService.createUser(payload);
     };
 
+    @ApiBearerAuth()
     @Post('register')
     @Protected(false)
     @Roles([UserRoles.ADMIN,UserRoles.CUSTOMER])
@@ -43,6 +48,7 @@ export class UserController {
         return this.userService.register(payload);
     };
 
+    @ApiBearerAuth()
     @Post('login')
     @Protected(false)
     @Roles([UserRoles.ADMIN,UserRoles.CUSTOMER])
@@ -50,6 +56,7 @@ export class UserController {
         return this.userService.login(payload);
     }
 
+    @ApiBearerAuth()
     @Put(':id')
     @Protected(true)
     @Roles([UserRoles.ADMIN])
@@ -57,6 +64,7 @@ export class UserController {
         return this.userService.updateUser({id, payload});
     };
 
+    @ApiBearerAuth()
     @Delete(':id')
     @Protected(true)
     @Roles([UserRoles.ADMIN])
