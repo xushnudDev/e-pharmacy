@@ -19,48 +19,48 @@ export class AuthService {
   ) {}
 
   async register(payload: RegisterUserDto) {
-    const existing = await this.userModel.findOne({ email: payload.email });
-    if (existing) throw new ConflictException('User already exists');
+  const existing = await this.userModel.findOne({ email: payload.email });
+  if (existing) throw new ConflictException('User already exists');
 
-    const hashedPassword = await hash(payload.password, 10);
+  const hashedPassword = await hash(payload.password, 10);
 
-    const user = await this.userModel.create({
-      ...payload,
-      password: hashedPassword,
-    });
+  const user = await this.userModel.create({
+    ...payload,
+    password: hashedPassword,
+  });
 
-    const accessToken = this.jwtService.sign({
-      id: user._id,
-      role: user.role,
-    });
+  const accessToken = this.jwtService.sign(
+    { id: user._id, role: user.role },
+    {secret: process.env.JWT_SECRET, expiresIn: '1d' }
+  );
 
-    return {
-      message: 'User registered successfully',
-      data: user,
-      accessToken,
-    };
-  }
+  return {
+    message: 'User registered successfully',
+    data: user,
+    accessToken,
+  };
+}
 
-  async login(payload: LoginUserDto) {
-    const user = await this.userModel.findOne({
-      email: new RegExp(`^${payload.email}$`, 'i'),
-    });
+async login(payload: LoginUserDto) {
+  const user = await this.userModel.findOne({
+    email: new RegExp(`^${payload.email}$`, 'i'),
+  });
 
-    if (!user) throw new ConflictException('User does not exist');
-    const isMatch = await compare(payload.password, user.password);
-    console.log('Salom', isMatch);
+  if (!user) throw new ConflictException('User does not exist');
+  const isMatch = await compare(payload.password, user.password);
 
-    if (!isMatch) throw new UnauthorizedException('Invalid credentials');
+  if (!isMatch) throw new UnauthorizedException('Invalid credentials');
 
-    const token = this.jwtService.sign({
-      id: user._id,
-      role: user.role,
-    });
+  const token = this.jwtService.sign(
+    { id: user._id, role: user.role },
+    { secret: process.env.JWT_SECRET,expiresIn: '1d' }
+  );
 
-    return {
-      message: 'User logged in successfully',
-      token,
-      data: user,
-    };
-  }
+  return {
+    message: 'User logged in successfully',
+    token,
+    data: user,
+  };
+}
+
 }

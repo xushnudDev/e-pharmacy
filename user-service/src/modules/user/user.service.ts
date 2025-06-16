@@ -50,7 +50,7 @@ export class UserService {
   }
   async decreaseBalance( userId: string, amount: number) {
     const user = await this.userModel.findById(userId);
-    if (!user) throw new NotFoundException('User not found');
+    if (!user) throw new NotFoundException('User not found');    
 
     if (user.balance < amount)
       throw new ConflictException('Insufficient balance');

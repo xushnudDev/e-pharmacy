@@ -14,17 +14,14 @@ export class PaymentService {
   ) {}
 
   async createPayment(data: CreatePaymentDto) {
-    // 1. Balansdan yechish
     await firstValueFrom(
       this.userClient.decreaseBalance({ id: data.userId, amount: data.amount })
     );
 
-    // 2. To'lovni yaratish
     const payment = await firstValueFrom(
       this.paymentClient.createPayment(data)
     );
 
-    // 3. Notification yuborish
     await firstValueFrom(
       this.notificationClient.sendNotification({
         userId: data.userId,

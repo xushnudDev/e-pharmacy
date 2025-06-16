@@ -1,8 +1,11 @@
+import * as dotenv from 'dotenv';
+dotenv.config();
 import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AllExceptionFilter } from './filter';
 import { JwtAuthGuard, RolesGuard } from './guard';
+
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -10,11 +13,11 @@ async function bootstrap() {
 
   app.useGlobalFilters(new AllExceptionFilter());
 
-  // const reflector = app.get(Reflector);
-  // app.useGlobalGuards(
-  //   new JwtAuthGuard(reflector),
-  //   new RolesGuard(reflector),
-  // );
+  const reflector = app.get(Reflector);
+  app.useGlobalGuards(
+    new JwtAuthGuard(reflector),
+    new RolesGuard(reflector),
+  );
 
   const config = new DocumentBuilder()
     .setTitle('E-Pharmacy Microservice')

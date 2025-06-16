@@ -17,7 +17,7 @@ model Payment {
   id          Int      @id @default(autoincrement())
   userId      String
   orderId     Int
-  amount      Decimal
+  amount      Int
   message     String   @default("")
   email       String   @default("")
   type        String   // "debit" | "credit" | "transfer"
