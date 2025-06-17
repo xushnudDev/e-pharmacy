@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { PillClient } from "./pill.client";
-import { CreatePillDto, UpdatePillDto } from "./dtos";
+import { CreatePillDto, SearchPillDto, UpdatePillDto } from "./dtos";
 
 @Injectable()
 export class PillService {
@@ -24,5 +24,9 @@ export class PillService {
 
     async delete(data: {id: number}) {
         return await this.pillClient.deletePill(data);
+    };
+
+    async searchPill(data: SearchPillDto) {
+        return await this.pillClient.search(data);
     }
 }

@@ -1,7 +1,7 @@
 import { Controller } from "@nestjs/common";
 import { PillService } from "./pill.service";
 import { MessagePattern } from "@nestjs/microservices";
-import { CreatePillDto, UpdatePillDto } from "./dtos";
+import { CreatePillDto, SearchPillDto, UpdatePillDto } from "./dtos";
 
 @Controller()
 export class PillController {
@@ -40,5 +40,10 @@ export class PillController {
     @MessagePattern('delete_pill')
     delete(data: {id: number}) {
         return this.pillService.remove(data.id);
+    };
+
+    @MessagePattern('search_pills')
+    search(data: SearchPillDto) {
+        return this.pillService.search(data);
     }
 }

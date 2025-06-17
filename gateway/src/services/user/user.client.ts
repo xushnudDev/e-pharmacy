@@ -4,7 +4,7 @@ import {
   ClientProxyFactory,
   Transport,
 } from '@nestjs/microservices';
-import { CreateUserDto, LoginUserDto, RegisterUserDto } from './dtos';
+import { CreateUserDto, LoginUserDto, RegisterUserDto, UpdateUserDto } from './dtos';
 import { lastValueFrom, Observable } from 'rxjs';
 
 @Injectable()
@@ -40,7 +40,7 @@ export class UserClient {
     return this.client.send('create_user', payload);
   }
 
-  updateUser(data: { id: string; payload: CreateUserDto }) {
+  updateUser(data: { id: string; payload: UpdateUserDto }) {
     return this.client.send('update_user', data);
   };
 

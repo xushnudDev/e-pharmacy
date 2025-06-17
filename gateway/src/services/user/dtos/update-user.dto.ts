@@ -25,6 +25,7 @@ export class UpdateUserDto {
   phone: string;
 
   @ApiPropertyOptional()
+  @IsOptional()
   balance: number;
 
   @ApiPropertyOptional()

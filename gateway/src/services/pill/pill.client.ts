@@ -1,6 +1,6 @@
 import { Injectable, OnModuleInit } from "@nestjs/common";
 import { ClientProxy, ClientProxyFactory, Transport } from "@nestjs/microservices";
-import { CreatePillDto, UpdatePillDto } from "./dtos";
+import { CreatePillDto, SearchPillDto, UpdatePillDto } from "./dtos";
 
 @Injectable()
 export class PillClient {
@@ -46,5 +46,9 @@ export class PillClient {
 
     deletePill(data: {id: number}) {
         return this.client.send("delete_pill", data);
+    };
+
+    search(data: SearchPillDto) {
+        return this.client.send("search_pills", data);
     }
 }

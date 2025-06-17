@@ -15,24 +15,24 @@ async function bootstrap() {
   const reflector = app.get(Reflector);
   app.useGlobalGuards(new JwtAuthGuard(reflector), new RolesGuard(reflector));
 
-  app.enableCors({
-    allowedHeaders: ['authorization'],
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    optionsSuccessStatus: 200,
-    origin: (reqOrigin, callBack) => {
-      const allowedOrigin = process.env.CORS_ORIGIN
-        ? process.env.CORS_ORIGIN.split(',')
-        : ['*'];
+  // app.enableCors({
+  //   allowedHeaders: ['authorization'],
+  //   methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  //   optionsSuccessStatus: 200,
+  //   origin: (reqOrigin, callBack) => {
+  //     const allowedOrigin = process.env.CORS_ORIGIN
+  //       ? process.env.CORS_ORIGIN.split(',')
+  //       : ['*'];
 
-      if (allowedOrigin.includes(reqOrigin) || allowedOrigin.includes('*')) {
-        return callBack(null, true);
-      } else {
-        callBack(
-          new NotAcceptableException(`${reqOrigin} is not allowed by CORS`),
-        );
-      }
-    },
-  });
+  //     if (allowedOrigin.includes(reqOrigin) || allowedOrigin.includes('*')) {
+  //       return callBack(null, true);
+  //     } else {
+  //       callBack(
+  //         new NotAcceptableException(`${reqOrigin} is not allowed by CORS`),
+  //       );
+  //     }
+  //   },
+  // });
 
   app.useGlobalPipes(
     new ValidationPipe({

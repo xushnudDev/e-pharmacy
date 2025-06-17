@@ -5,7 +5,8 @@ import {
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { Pill } from './model';
-import { CreatePillDto, UpdatePillDto } from './dtos';
+import { CreatePillDto, SearchPillDto, UpdatePillDto } from './dtos';
+import { Op } from 'sequelize';
 
 @Injectable()
 export class PillService {
@@ -56,13 +57,14 @@ export class PillService {
       data: pills,
     };
   }
-  async create(payload: CreatePillDto) {    
+
+  async create(payload: CreatePillDto) {
     const founded = await this.pillModel.findOne({
       where: {
         code: payload.code,
       },
     });
-    
+
     if (founded) throw new ConflictException('Pill already exists');
 
     const pill = await this.pillModel.create({
@@ -109,5 +111,25 @@ export class PillService {
         id,
       },
     });
+  }
+
+  async search(query: SearchPillDto) {
+    const whereClause: any = {};
+
+    if (query.name && query.name.trim() !== '') {
+      whereClause.name = { [Op.like]: `%${query.name.trim()}%` };
+    }
+
+    if (query.code && query.code.trim() !== '') {
+      whereClause.code = { [Op.like]: `%${query.code.trim()}%` };
+    }
+
+    const pills = await this.pillModel.findAll({ where: whereClause });
+
+    return {
+      message: 'Pills fetched successfully',
+      count: pills.length,
+      data: pills,
+    };
   }
 }
