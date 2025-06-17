@@ -27,6 +27,7 @@ export class PillService {
     };
 
     async searchPill(data: SearchPillDto) {
+        
         return await this.pillClient.search(data);
     }
 }

@@ -29,7 +29,6 @@ export class RegisterUserDto {
     phone: string;
 
     @ApiProperty()
-    @IsArray()
     @IsIn([UserRoles.ADMIN, UserRoles.CUSTOMER])
     role: UserRoles;
 }

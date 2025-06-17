@@ -22,7 +22,6 @@ export class RegisterUserDto {
     @IsString()
     phone: string;
 
-    @IsArray()
     @IsIn([Roles.ADMIN, Roles.CUSTOMER])
     role: Roles;
 }

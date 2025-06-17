@@ -35,7 +35,6 @@ export class CategoryController {
 
     @Get('with-pills/all')
     @Protected(false)
-    @Roles([UserRoles.CUSTOMER,UserRoles.ADMIN])
     async getPillsByCategory() {
         return await this.categoryService.getPillsByCategory();
     }

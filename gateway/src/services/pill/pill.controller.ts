@@ -62,10 +62,11 @@ export class PillController {
 
   @ApiBearerAuth()
   @UsePipes(new ValidationPipe({ transform: true }))
-  @Get('search')
-  @Protected(true)
-  @Roles([UserRoles.ADMIN, UserRoles.CUSTOMER])
+  @Get("search")
+  @Protected(false)
   async searchPill(@Query() payload: SearchPillDto) {
+    console.log('payload', payload);
+    
     return await this.pillService.searchPill(payload);
   }
 }

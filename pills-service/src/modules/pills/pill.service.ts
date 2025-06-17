@@ -114,22 +114,22 @@ export class PillService {
   }
 
   async search(query: SearchPillDto) {
-    const whereClause: any = {};
+  const whereClause: any = {};
 
-    if (query.name && query.name.trim() !== '') {
-      whereClause.name = { [Op.like]: `%${query.name.trim()}%` };
-    }
-
-    if (query.code && query.code.trim() !== '') {
-      whereClause.code = { [Op.like]: `%${query.code.trim()}%` };
-    }
-
-    const pills = await this.pillModel.findAll({ where: whereClause });
-
-    return {
-      message: 'Pills fetched successfully',
-      count: pills.length,
-      data: pills,
-    };
+  if (query.name) {
+    whereClause.name = { [Op.like]: `%${query.name.trim()}%` };
   }
+
+  if (query.code) {
+    whereClause.code = { [Op.like]: `%${query.code.trim()}%` };
+  }
+
+  const pills = await this.pillModel.findAll({ where: whereClause });
+  
+  return {
+    message: 'Dorilar muvaffaqiyatli topildi',
+    count: pills.length,
+    data: pills,
+  };
+}
 }

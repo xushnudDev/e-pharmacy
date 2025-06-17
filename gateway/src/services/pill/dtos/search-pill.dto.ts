@@ -1,14 +1,14 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { IsOptional, IsString } from 'class-validator';
-import { ApiPropertyOptional } from '@nestjs/swagger';
 
 export class SearchPillDto {
-  @ApiPropertyOptional({ description: "Pill name", example: "Paracetamol" })
-  @IsOptional()
+  @ApiProperty({ description: "name", example: "Paracetamol", required: false })
   @IsString()
+  @IsOptional()
   name?: string;
 
-  @ApiPropertyOptional({ description: "Pill code", example: "P001" })
-  @IsOptional()
+  @ApiProperty({ description: "code", example: "P001", required: false })
   @IsString()
+  @IsOptional()
   code?: string;
 }
